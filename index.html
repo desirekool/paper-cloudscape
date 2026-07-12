@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Paper Cloudscape — Realistic Paper Diorama</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="bg-canvas"></canvas>
+    <div class="warm-light" id="warm-light"></div>
+    <div class="vignette"></div>
+
+    <div class="hud">
+      <div class="top-bar">
+        <div class="title-card">          
+          <div class="title-name">Ahmed Bilal</div>
+          <div class="title-role">Senior Full-Stack Developer</div>
+          <div class="title-tags">TypeScript · React · Java · Spring Boot</div>
+        </div>
+        <div class="stats-card">
+          <div class="stat">
+            <div class="stat-label">Distance</div>
+            <div class="stat-value">
+              <span id="distance">0</span><span class="unit">%</span>
+            </div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Clouds</div>
+            <div class="stat-value"><span id="cloud-count">0</span></div>
+          </div>
+          <div class="stat">
+            <div class="stat-label">Section</div>
+            <div class="stat-value time-badge">
+              <span class="time-icon" id="time-icon"></span>
+              <span class="time-name" id="time-name">Midday</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="click-hint" id="click-hint">
+        Click anywhere to place a cloud
+      </div>
+
+      <div class="bottom-bar">
+        <div class="controls-hint">
+          <span><span class="key">SCROLL</span> explore</span>
+          <span
+            ><span class="key">A D</span> or
+            <span class="key">← →</span> move</span
+          >
+          <span><span class="key">DRAG</span> pan</span>
+          <span><span class="key">CLICK</span> add cloud</span>
+        </div>
+        <div class="progress-track" id="progress-track">
+          <div class="progress-fill" id="progress-fill"></div>
+          <div class="progress-marker" id="progress-marker"></div>
+        </div>
+        <div class="progress-labels">
+          <span style="left: 0%">Kontakt</span>
+          <span style="left: 11.9%">PROFIL</span>
+          <span style="left: 27.4%">KERNKOMPETENZEN</span>
+          <span style="left: 45.2%">BERUFSERFAHRUNG</span>
+          <span style="left: 64.3%">ZERTIFIKATE</span>
+          <span style="left: 81%">Studium</span>
+          <span style="left: 98%">SPRACHEN &amp; SONSTIGES</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast" id="toast">
+      <span class="toast-dot"></span>
+      <span id="toast-text">Cloud placed</span>
+    </div>
+
+    <script type="module" src="/src/main.ts"></script>
+    </script>
+  </body>
+</html>
