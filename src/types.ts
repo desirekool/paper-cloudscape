@@ -36,6 +36,10 @@ export interface CloudUserData {
   scale: number;
   isCloud: true;
   spawnTime?: number;
+  editing?: boolean;
+  noteText?: string;
+  caretPos?: number;
+  caretVisible?: boolean;
 }
 
 export interface HillUserData {

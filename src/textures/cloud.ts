@@ -186,6 +186,7 @@ export function createLabeledCloudTexture(
   heading: string,
   body: string,
   uniformFont?: boolean,
+  noteMode?: boolean,
 ): THREE.CanvasTexture {
   const W = 512, H = 256;
   const r = (n: number) => rand(seed * 100 + n);
@@ -243,7 +244,7 @@ export function createLabeledCloudTexture(
 
   ctx.save();
   ctx.globalCompositeOperation = "source-atop";
-  ctx.fillStyle = "#f0e8d4";
+  ctx.fillStyle = noteMode ? "#faf3e6" : "#f0e8d4";
   ctx.fillRect(0, 0, W, H);
   ctx.restore();
 
@@ -279,11 +280,13 @@ export function createLabeledCloudTexture(
   const headingFont = uniformFont
     ? "500 13px 'Inter', sans-serif"
     : "bold 15px 'Fraunces', serif";
-  const bodyFont = uniformFont
+  const bodyFont = noteMode
+    ? "14px 'Inter', sans-serif"
+    : uniformFont
     ? "13px 'Inter', sans-serif"
     : "11px 'Inter', sans-serif";
   const headingLH = uniformFont ? 18 : 17;
-  const bodyLH = uniformFont ? 18 : 15;
+  const bodyLH = noteMode ? 20 : uniformFont ? 18 : 15;
   const headingGap = uniformFont ? 3 : 2;
 
   ctx.font = headingFont;
@@ -320,15 +323,16 @@ export function createLabeledCloudTexture(
 
   let areaY = Math.max(28, (H - totalH) / 2) + (bulletsMode ? 14 : 0);
 
-  ctx.textAlign = "left";
+  ctx.textAlign = uniformFont ? "center" : "left";
   ctx.textBaseline = "top";
   ctx.font = headingFont;
   ctx.fillStyle = "#1a1410";
   ctx.shadowColor = "rgba(255, 250, 240, 0.25)";
   ctx.shadowBlur = 1;
   ctx.shadowOffsetY = 1;
+  const headingX = uniformFont ? areaX : areaX - maxTextW / 2;
   for (const line of headingLines) {
-    ctx.fillText(line, areaX - maxTextW / 2, areaY);
+    ctx.fillText(line, headingX, areaY);
     areaY += headingLH;
   }
   if (headingLines.length > 0) {
@@ -341,7 +345,7 @@ export function createLabeledCloudTexture(
 
   ctx.font = bodyFont;
   ctx.fillStyle = "#231c14";
-  ctx.textAlign = "left";
+  ctx.textAlign = uniformFont ? "center" : "left";
 
   if (bulletsMode) {
     const pad = 10;
@@ -379,23 +383,38 @@ export function createLabeledCloudTexture(
       continue;
     }
     if (areaY > 220) break;
-    const baseX = areaX - maxTextW / 2;
+    const baseX = uniformFont ? areaX : areaX - maxTextW / 2;
 
     if (uniformFont && line === "LinkedIn:") {
       pendingIcon = "li";
     } else if (uniformFont && line.startsWith("LinkedIn: ")) {
-      const iconW = drawIcon(ctx, baseX, areaY + (bodyLH - 14) / 2, "li", 14);
-      ctx.fillText(line.slice(10), baseX + iconW, areaY);
+      const textW = ctx.measureText(line.slice(10)).width;
+      const iconW = 14 + 5;
+      const startX = baseX - (iconW + textW) / 2;
+      drawIcon(ctx, startX, areaY + (bodyLH - 14) / 2, "li", 14);
+      ctx.textAlign = "left";
+      ctx.fillText(line.slice(10), startX + iconW, areaY);
+      ctx.textAlign = "center";
       areaY += bodyLH;
     } else if (uniformFont && line === "GitHub:") {
       pendingIcon = "gh";
     } else if (uniformFont && line.startsWith("GitHub: ")) {
-      const iconW = drawIcon(ctx, baseX, areaY + (bodyLH - 14) / 2, "gh", 14);
-      ctx.fillText(line.slice(8), baseX + iconW, areaY);
+      const textW = ctx.measureText(line.slice(8)).width;
+      const iconW = 14 + 5;
+      const startX = baseX - (iconW + textW) / 2;
+      drawIcon(ctx, startX, areaY + (bodyLH - 14) / 2, "gh", 14);
+      ctx.textAlign = "left";
+      ctx.fillText(line.slice(8), startX + iconW, areaY);
+      ctx.textAlign = "center";
       areaY += bodyLH;
     } else if (pendingIcon) {
-      const iconW = drawIcon(ctx, baseX, areaY + (bodyLH - 14) / 2, pendingIcon, 14);
-      ctx.fillText(line, baseX + iconW, areaY);
+      const textW = ctx.measureText(line).width;
+      const iconW = 14 + 5;
+      const iconX = uniformFont ? baseX - (iconW + textW) / 2 : baseX;
+      drawIcon(ctx, iconX, areaY + (bodyLH - 14) / 2, pendingIcon, 14);
+      ctx.textAlign = uniformFont ? "left" : "left";
+      ctx.fillText(line, iconX + iconW, areaY);
+      ctx.textAlign = "center";
       pendingIcon = null;
       areaY += bodyLH;
     } else {
@@ -403,6 +422,26 @@ export function createLabeledCloudTexture(
       areaY += bodyLH;
     }
   }
+  }
+
+  if (noteMode) {
+    const px = W - 48;
+    const py = 24;
+    ctx.fillStyle = "#c97a5a";
+    ctx.beginPath();
+    ctx.arc(px, py + 4, 8, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = "#8b5a3c";
+    ctx.beginPath();
+    ctx.moveTo(px - 3, py + 11);
+    ctx.lineTo(px + 3, py + 11);
+    ctx.lineTo(px, py + 20);
+    ctx.closePath();
+    ctx.fill();
+    ctx.fillStyle = "#faf3e6";
+    ctx.beginPath();
+    ctx.arc(px, py + 4, 3, 0, Math.PI * 2);
+    ctx.fill();
   }
 
   ctx.restore();

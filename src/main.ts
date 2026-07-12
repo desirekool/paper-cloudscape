@@ -1,6 +1,6 @@
 import { createAppState } from "./state";
 import { createScene } from "./scene/setup";
-import { prebuildTexturePools, prebuildCloudLayers, spawnCloudAtMouse } from "./scene/clouds";
+import { prebuildTexturePools, prebuildCloudLayers } from "./scene/clouds";
 import { createHillLayers } from "./scene/hills";
 import { placeTreeClusters } from "./scene/trees";
 import { createCelestialObjects } from "./scene/celestial";
@@ -30,8 +30,8 @@ createDustMotes(scene, state);
 createCvClouds(scene, state);
 
 setupKeyboard(state);
-setupMouse(state, (x, y) => spawnCloudAtMouse(x, y, state));
-setupTouch(state, (x, y) => spawnCloudAtMouse(x, y, state));
+setupMouse(state);
+setupTouch(state);
 
 updateCloudCount(state);
 showClickHint();

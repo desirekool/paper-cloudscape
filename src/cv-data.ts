@@ -17,16 +17,16 @@ export const cvPhases: CvPhase[] = [
     scrollTarget: 0.00,
     cards: [
       {
-        heading: "Adresse\nAm Kimmelsteich 1\n63791 Karlstein am Main",
+        text: "Am Kimmelsteich 1\n63791 Karlstein am Main",
       },
       {
-        heading: "\u{1F4DE} 0160 96809764 \n\u{2709} ahmed.bilal73@outlook.com",
+        text: "\u{1F4DE} 0160 96809764 \n\u{2709} ahmed.bilal73@outlook.com",
       },
       {
-        heading: "Arbeitserlaubnis unbefristet",
+        text: "Arbeitserlaubnis unbefristet",
       },
       {
-        heading: "LinkedIn: http://www.linkedin.com/in/ahmed-bilal-14355940\nGitHub: https://www.github.com/desirekool",
+        text: "LinkedIn: http://www.linkedin.com/in/ahmed-bilal-14355940\nGitHub: https://www.github.com/desirekool",
       },
     ],
   },

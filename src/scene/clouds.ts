@@ -111,7 +111,8 @@ export function prebuildCloudLayers(scene: THREE.Scene, state: AppState): void {
   });
 
   const extraTargets = [
-    { phase: "Kontakt", offset: 38 },
+    { phase: "Kontakt", offset: 16 },
+    { phase: "Kontakt", offset: 30 },
     { phase: "PROFIL", offset: 38 },
     { phase: "Studium", offset: -38 },
     { phase: "SPRACHEN & SONSTIGES", offset: 38 },
@@ -129,11 +130,11 @@ export function prebuildCloudLayers(scene: THREE.Scene, state: AppState): void {
       side: THREE.DoubleSide,
       depthWrite: false,
     });
-    const scale = 3 + rand(seed + 0.5) * 3;
+    const scale = 4 + rand(seed + 0.5) * 4;
     const geometry = new THREE.PlaneGeometry(scale * 2, scale);
     const cloud = new THREE.Mesh(geometry, material);
     const x = cx + t.offset;
-    const y = 12 + rand(seed + 2) * 10;
+    const y = 6 + rand(seed + 2) * 6;
     cloud.position.set(x, y, 12);
     cloud.userData = {
       baseX: x,

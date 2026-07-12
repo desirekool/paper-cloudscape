@@ -1,10 +1,8 @@
 import type { AppState } from "../types";
 import { SLIDER_MAX } from "../state";
+import { spawnNoteCloud } from "../note-editor";
 
-export function setupTouch(
-  state: AppState,
-  spawnCloud: (clientX: number, clientY: number) => void,
-): void {
+export function setupTouch(state: AppState): void {
   const canvas = document.getElementById("bg-canvas") as HTMLCanvasElement;
   const track = document.getElementById("progress-track") as HTMLElement;
   let touchStartX = 0, touchStartScroll = 0, touchMoved = false;
@@ -58,7 +56,7 @@ export function setupTouch(
   canvas.addEventListener("touchend", (e) => {
     if (sliderTouch) return;
     if (!touchMoved && e.changedTouches.length > 0) {
-      spawnCloud(e.changedTouches[0].clientX, e.changedTouches[0].clientY);
+      spawnNoteCloud(e.changedTouches[0].clientX, e.changedTouches[0].clientY, state);
     }
   });
 }

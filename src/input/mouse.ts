@@ -1,10 +1,8 @@
 import type { AppState } from "../types";
 import { SLIDER_MAX } from "../state";
+import { spawnNoteCloud, finalizeNote, getEditingCloud } from "../note-editor";
 
-export function setupMouse(
-  state: AppState,
-  spawnCloud: (clientX: number, clientY: number) => void,
-): void {
+export function setupMouse(state: AppState): void {
   const canvas = document.getElementById("bg-canvas") as HTMLCanvasElement;
   const track = document.getElementById("progress-track") as HTMLElement;
   let sliderDragging = false;
@@ -47,6 +45,16 @@ export function setupMouse(
 
   canvas.addEventListener("mousedown", (e) => {
     if (sliderDragging) return;
+
+    const editingCloud = getEditingCloud(state);
+    if (editingCloud && e.target !== canvas) {
+      finalizeNote(editingCloud, state);
+      return;
+    }
+    if (editingCloud) {
+      finalizeNote(editingCloud, state);
+    }
+
     state.isDragging = true;
     state.dragMoved = false;
     state.dragStartX = e.clientX;
@@ -61,7 +69,7 @@ export function setupMouse(
       return;
     }
     if (state.isDragging) {
-      if (!state.dragMoved) spawnCloud(e.clientX, e.clientY);
+      if (!state.dragMoved) spawnNoteCloud(e.clientX, e.clientY, state);
       state.isDragging = false;
       document.body.classList.remove("dragging");
     }

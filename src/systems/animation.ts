@@ -2,6 +2,7 @@ import * as THREE from "three";
 import type { AppState, CloudUserData, BirdUserData, TreeUserData, HillUserData } from "../types";
 import { SCROLL_START, WORLD_LENGTH } from "../state";
 import { updateSky } from "./sky";
+import { tickNoteEditor } from "../note-editor";
 import { updateHUD } from "../hud";
 
 export function createAnimationLoop(state: AppState): void {
@@ -91,6 +92,7 @@ export function createAnimationLoop(state: AppState): void {
 
     updateSky(state.scrollProgress, state);
     updateHUD(state);
+    tickNoteEditor(state, time);
 
     if (state.scene && state.camera && state.renderer) {
       state.renderer.render(state.scene, state.camera);
