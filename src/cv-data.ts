@@ -183,7 +183,7 @@ export const cvPhases: CvPhase[] = [
   },
   {
     phase: "Studium",
-    scrollTarget: 0.68,
+    scrollTarget: 0.66,
     cards: [
       {
         heading: "Fachinformatiker (IHK) Anwendungsentwicklung",
@@ -204,7 +204,7 @@ export const cvPhases: CvPhase[] = [
   },
   {
     phase: "SPRACHEN & SONSTIGES",
-    scrollTarget: 0.84,
+    scrollTarget: 0.78,
     cards: [
       {
         heading: "Deutsch Verhandlungssicher (C1)"

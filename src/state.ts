@@ -4,7 +4,7 @@ import type { AppState, HillLayerConfig } from "./types";
 export const WORLD_LENGTH = 600;
 export const SCROLL_START = -WORLD_LENGTH / 2;
 export const SCROLL_END = WORLD_LENGTH / 2;
-export const SLIDER_MAX = 0.84;
+export const SLIDER_MAX = 0.78;
 
 export const hillLayers: HillLayerConfig[] = [
   { z: -55, color: "#4a5d3a", fiber: [70, 80, 55], y: -10, parallax: 0.4 },
